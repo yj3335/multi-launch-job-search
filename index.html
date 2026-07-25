@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Multi-Launch Job Search</title>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <h1>Multi&#8209;Launch Job Search</h1>
+    <span class="tag">One click &middot; every board &middot; new tabs</span>
+  </header>
+
+  <div class="panel">
+    <div class="controls">
+      <div>
+        <label class="field-label" for="jobTitle">Job title</label>
+        <input type="text" id="jobTitle" placeholder="e.g. Software Engineer" autocomplete="off" />
+      </div>
+      <div>
+        <label class="field-label" for="timeFilter">Posted within</label>
+        <select id="timeFilter"></select>
+      </div>
+      <div>
+        <label class="field-label" for="location">Location <span class="field-optional">(if not remote)</span></label>
+        <input type="text" id="location" placeholder="e.g. New York, Canada &mdash; leave blank for anywhere" autocomplete="off" />
+      </div>
+      <div>
+        <label class="field-label" for="excludeTerms">
+          Exclude terms <span class="field-optional">(optional)</span>
+          <button type="button" class="info-btn" aria-label="How does Exclude terms work?">
+            ?
+            <span class="tooltip" role="tooltip">
+              Comma&#8209;separated terms to filter out, e.g. "Senior, Manager" to skip postings containing either word.
+              Applied as <code>-term</code> on Google searches and <code>NOT term</code> on LinkedIn.
+            </span>
+          </button>
+        </label>
+        <input type="text" id="excludeTerms" placeholder="e.g. Senior, Manager" autocomplete="off" />
+      </div>
+    </div>
+
+    <div class="setting-row">
+      <label for="remoteOnly">
+        <input type="checkbox" id="remoteOnly" checked />
+        <span>Remote only</span>
+      </label>
+      <button type="button" class="info-btn" aria-label="What does Remote only do?">
+        ?
+        <span class="tooltip" role="tooltip">
+          Adds "remote" to each search. Uncheck to search a specific location instead (the Location field above), or
+          anywhere if it's left blank.
+        </span>
+      </button>
+    </div>
+
+    <div class="setting-row">
+      <label for="batchSize">
+        <span>Sites per tab</span>
+        <input type="number" id="batchSize" min="1" max="15" value="6" />
+      </label>
+      <button type="button" class="info-btn" aria-label="What does Sites per tab do?">
+        ?
+        <span class="tooltip" role="tooltip">
+          Combines several platforms' <code>site:</code> filters into each tab instead of opening one tab per platform &mdash;
+          fewer simultaneous tabs means fewer get blocked as pop&#8209;ups, and fewer near&#8209;identical Google searches
+          fired at once means less chance of tripping a captcha. If you still see one blocked, allow pop&#8209;ups for this
+          page once and click again; LinkedIn and Remote Rocketship always open as their own tab since they aren't Google
+          searches.
+        </span>
+      </button>
+    </div>
+
+    <div class="status-row">
+      <div class="count"><strong id="selCount">0</strong> of <span id="totalCount">0</span> sources selected <span id="tabsPreview"></span></div>
+      <div class="links">
+        <button type="button" id="selectAll">Select all</button>
+        <button type="button" id="selectNone">Select none</button>
+      </div>
+    </div>
+
+    <button type="button" class="launch-btn" id="launchBtn" disabled>Launch all selected searches &rarr;</button>
+  </div>
+
+  <div id="groups"></div>
+</div>
+
+<footer>
+  Rebuilds the search logic of <a href="https://briansjobsearch.com/" target="_blank" rel="noopener">Brian's Job Search</a> so every source opens at once instead of one click at a time.
+</footer>
+
+<script src="js/search-builder.js"></script>
+<script src="js/sources.js"></script>
+<script src="js/info-tooltip.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

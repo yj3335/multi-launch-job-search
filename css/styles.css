@@ -1,0 +1,323 @@
+:root {
+  --ink: #101a1d;
+  --paper: #f3f2ee;
+  --surface: #ffffff;
+  --border: #d9d6cd;
+  --muted: #6b6f6d;
+  --accent: #0e7a7a;
+  --accent-ink: #05302f;
+  --accent-soft: #d8ece9;
+  --go: #ba5a24;
+  --go-ink: #ffffff;
+  --focus: #0e7a7a;
+  --tooltip-bg: #101a1d;
+  --tooltip-ink: #f3f2ee;
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #e9ece9;
+    --paper: #10171a;
+    --surface: #171f22;
+    --border: #2a3336;
+    --muted: #98a19e;
+    --accent: #3fb8b0;
+    --accent-ink: #d6f3ef;
+    --accent-soft: #1c3232;
+    --go: #e2793d;
+    --go-ink: #101014;
+    --focus: #3fb8b0;
+    --tooltip-bg: #2a3336;
+    --tooltip-ink: #e9ece9;
+  }
+}
+:root[data-theme="dark"] {
+  --ink: #e9ece9;
+  --paper: #10171a;
+  --surface: #171f22;
+  --border: #2a3336;
+  --muted: #98a19e;
+  --accent: #3fb8b0;
+  --accent-ink: #d6f3ef;
+  --accent-soft: #1c3232;
+  --go: #e2793d;
+  --go-ink: #101014;
+  --focus: #3fb8b0;
+  --tooltip-bg: #2a3336;
+  --tooltip-ink: #e9ece9;
+}
+:root[data-theme="light"] {
+  --ink: #101a1d;
+  --paper: #f3f2ee;
+  --surface: #ffffff;
+  --border: #d9d6cd;
+  --muted: #6b6f6d;
+  --accent: #0e7a7a;
+  --accent-ink: #05302f;
+  --accent-soft: #d8ece9;
+  --go: #ba5a24;
+  --go-ink: #ffffff;
+  --focus: #0e7a7a;
+  --tooltip-bg: #101a1d;
+  --tooltip-ink: #f3f2ee;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Segoe UI", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+body { padding: 2.25rem 1.5rem 5rem; }
+
+.wrap { max-width: 880px; margin: 0 auto; }
+
+header.masthead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 3px solid var(--ink);
+  padding-bottom: 0.6rem;
+  margin-bottom: 1.6rem;
+  flex-wrap: wrap;
+}
+.masthead h1 {
+  font-family: "Arial Narrow", "Segoe UI Semibold", system-ui, sans-serif;
+  font-stretch: condensed;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  font-size: clamp(1.6rem, 4vw, 2.3rem);
+  margin: 0;
+  text-wrap: balance;
+}
+.masthead .tag {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem 1.35rem;
+  margin-bottom: 1.25rem;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem 1rem;
+}
+@media (max-width: 620px) { .controls { grid-template-columns: 1fr; } }
+
+label.field-label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+label.field-label .field-optional {
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 0.72rem;
+  opacity: 0.75;
+}
+label.field-label .info-btn { margin-left: -0.1rem; }
+input[type="text"], select {
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: inherit;
+}
+input[type="text"]:focus, select:focus, button:focus-visible, .chip:focus-within {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+}
+input[type="text"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Row for a toggle/setting plus its info button, e.g. "Remote only [?]" */
+.setting-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+  font-size: 0.86rem;
+}
+.setting-row label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+.setting-row input[type="checkbox"] { accent-color: var(--accent); width: 15px; height: 15px; }
+.setting-row input[type="number"] {
+  width: 3.2rem;
+  padding: 0.25rem 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+/* "?" info button + its tooltip, hidden until hover/focus/tap */
+.info-btn {
+  position: relative;
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: none;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.info-btn:hover, .info-btn:focus-visible, .info-btn[aria-expanded="true"] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.info-btn .tooltip {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: max(220px, min(320px, 60vw));
+  background: var(--tooltip-bg);
+  color: var(--tooltip-ink);
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+  padding: 0.65rem 0.75rem;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.12s ease;
+  pointer-events: none;
+}
+.info-btn:hover .tooltip,
+.info-btn:focus-visible .tooltip,
+.info-btn[aria-expanded="true"] .tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 1.1rem 0 0.9rem;
+  flex-wrap: wrap;
+}
+.status-row .count {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.status-row .count strong { color: var(--ink); }
+.status-row .count #tabsPreview { color: var(--accent); margin-left: 0.15rem; }
+.status-row .links {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8rem;
+}
+.status-row .links button {
+  background: none; border: none; padding: 0;
+  color: var(--accent); cursor: pointer;
+  font-size: 0.8rem; text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.launch-btn {
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+  padding: 0.85rem 1.3rem;
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--go) 60%, black 15%);
+  background: var(--go);
+  color: var(--go-ink);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.launch-btn:hover { filter: brightness(1.06); }
+.launch-btn:active { filter: brightness(0.95); }
+.launch-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.group { margin-bottom: 1.1rem; }
+.group h2 {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin: 0 0 0.55rem;
+  font-weight: 700;
+}
+.chips {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 0.5rem;
+}
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 0.5rem 0.65rem;
+  background: var(--paper);
+  font-size: 0.86rem;
+  cursor: pointer;
+  user-select: none;
+}
+.chip.checked {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+.chip input { accent-color: var(--accent); width: 15px; height: 15px; flex: none; }
+.chip .name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chip a.open-one {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.78rem;
+  flex: none;
+}
+.chip a.open-one:hover { color: var(--accent); }
+
+footer {
+  max-width: 880px;
+  margin: 2rem auto 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-align: center;
+}
+footer a { color: var(--accent); }
