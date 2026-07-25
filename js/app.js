@@ -41,7 +41,7 @@ function loadSelected() {
   catch { return null; }
 }
 function saveSelected(names) {
-  localStorage.setItem(STORAGE.selected, JSON.stringify(names));
+  try { localStorage.setItem(STORAGE.selected, JSON.stringify(names)); } catch {}
 }
 
 TIME_OPTIONS.forEach(([val, label]) => {
