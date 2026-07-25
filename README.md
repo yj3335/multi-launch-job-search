@@ -29,11 +29,3 @@ js/sources.js             — the source catalog (ATS platforms, boards, career-
 js/info-tooltip.js        — small reusable "?" hover/tap tooltip component
 js/app.js                 — DOM rendering, state, and event wiring
 ```
-
-## Deploying to GitHub Pages
-
-1. Push this repo to GitHub (already done if you're reading this from the repo).
-2. In the repo's **Settings → Pages**, set the source to the `main` branch, root folder.
-3. It'll be live at `https://<username>.github.io/<repo-name>/`.
-
-No secrets or server-side code are involved — everything here runs client-side, and clicking a search just opens a normal Google/LinkedIn search URL in a new tab.
